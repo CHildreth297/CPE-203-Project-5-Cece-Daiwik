@@ -1,0 +1,52 @@
+INSTRUCTIONS:
+List each method that you feel could be reasonably placed in multiple classes and
+1) the class you selected
+2) the reason for that selection
+
+
+
+a)
+WorldModel Class:
+-tryAddWEntity()
++AddEntity()
++moveEntity()
+
+Reason: all those methods could potentially be in the Entity class just by looking at the name and looking at the data
+passed in. However, I placed them in WorldModel for the following reasons: the functions pass in a WorldModel object, the WorldModel objects
+seem to drive the function, and WorldModel is supposed to handle entities in the world. The functions above are responsible
+for the addition and movement of entities and WorldModel is responsible for more of that than the entity class is (the entity
+class is responsible for the kinds of entities that exist in the world)
+
+
+b)
+WorldModel Class:
+- setBackgroundCell()
+- setBackground()
+- getBackgroundCell(): Background
++getBackgroundImage(): Optional<PImage>
+
+Reason: The above functions could be put into the Background class or the WorldModel class. Either way, they would
+need to be grouped together because they're all related to each other and it wouldn't make sense to seperate them. I put
+them in WorldModel because these background functions were specific to the WorldModel objects. It seems like the WorldModel
+object's data is called the most. WorldModel handles background images for each location.
+
+
+c)
+Action Class:
++executeAction()
++executeActivityAction()
+-executeAnimationAction()
+
+Reason: the above functions could be placed in eventScheduler or Action class, but i placed it in the Action class because it
+seemed like the Action object was "driving" the function. The conditions in the functions are dependent on the action
+object (e.g switch statements, if-statements) more so than the other objects.
+
+d)
+Entity Class:
++scheduleActions()
+
+Reason: this function could be placed in the EventScheduler class since the name indicated scheduling and the
+function does use a lot of data from the EventScheduler object. However, the object that drives/starts the instructions
+in the function is the entity object -- switch(entity.kind).
+
+
