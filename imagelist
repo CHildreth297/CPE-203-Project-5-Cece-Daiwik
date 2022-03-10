@@ -5,6 +5,12 @@ obstacle images/water2.png
 obstacle images/water1.png
 obstacle images/water0.png
 grass images/grass.png
+mainBurn images/mainBurn.png
+sideBurn images/sideBurn.png
+sideBurn2 images/sideBurn2.png
+sideBurn3 images/sideBurn3.png
+lava1 images/lava1.png
+lava2 images/lava2.png
 flowers images/flowers.png
 background_default images/none.bmp
 dirt images/dirt.bmp
@@ -25,6 +31,12 @@ dude images/dude0.png
 dude images/dude1.png
 dude images/dude2.png
 dude images/dude3.png
+knight images/knight0.png
+knight images/knight1.png
+knight images/knight2.png
+knight images/knight3.png
+knight images/knight4.png
+knight images/knight5.png
 fairy images/fairy0.png
 fairy images/fairy1.png
 fairy images/fairy2.png
