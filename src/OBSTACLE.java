@@ -21,11 +21,6 @@ public final class OBSTACLE extends animatingEntity
         super(id, position, images, 0, animationPeriod);
     }
 
-
-
-
-
-
     public static Entity create(
             String id, Point position, int animationPeriod, List<PImage> images)
     {

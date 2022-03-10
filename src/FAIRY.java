@@ -97,19 +97,6 @@ public final class FAIRY extends Executable
         }
     }
 
-    public void scheduleActions(
-            EventScheduler scheduler,
-            WorldModel world,
-            ImageStore imageStore)
-    {
-            super.scheduleActions(scheduler, world, imageStore);
-            scheduler.scheduleEvent(this,
-                    this.createActivityAction(world, imageStore),
-                    this.getActionPeriod());
-
-
-    }
-
 
     public static Entity create(
             String id,

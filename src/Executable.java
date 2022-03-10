@@ -16,6 +16,19 @@ public abstract class Executable extends animatingEntity {
                         this.getActionPeriod());
         }
 
+        public void scheduleActions(
+                EventScheduler scheduler,
+                WorldModel world,
+                ImageStore imageStore)
+        {
+                super.scheduleActions(scheduler, world, imageStore);
+                scheduler.scheduleEvent(this,
+                        this.createActivityAction(world, imageStore),
+                        this.getActionPeriod());
+
+
+        }
+
         public int getActionPeriod(){return this.actionPeriod;}
 
 }

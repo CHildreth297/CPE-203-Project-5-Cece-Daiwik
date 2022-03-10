@@ -38,11 +38,7 @@ public final class DUDE_NOT_FULL extends Dude
                     this.getResourceLimit(),
                     this.getImagesList());
 
-            world.removeEntity(this);
-            scheduler.unscheduleAllEvents(this);
-
-            world.addEntity(miner);
-            ((animatingEntity)miner).scheduleActions(scheduler, world, imageStore);
+            super.transform(world, scheduler, imageStore, miner);
 
             return true;
         }
@@ -78,16 +74,7 @@ public final class DUDE_NOT_FULL extends Dude
 
         }
         else {
-            Point nextPos = this.nextPositionDude(world, target.getPosition());
-
-            if (!this.getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent()) {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
+           super.move(world, target, scheduler);
             return false;
         }
     }

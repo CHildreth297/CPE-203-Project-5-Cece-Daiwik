@@ -1,6 +1,7 @@
 import processing.core.PImage;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class Dude extends Executable {
     private int resourceLimit;
@@ -51,15 +52,30 @@ public abstract class Dude extends Executable {
         return (paths.size() == 0 ? this.getPosition() : paths.get(0));
     }
 
-    public void scheduleActions(
-            EventScheduler scheduler,
-            WorldModel world,
-            ImageStore imageStore)
-    {
-        super.scheduleActions(scheduler, world, imageStore);
-        scheduler.scheduleEvent(this,
-                this.createActivityAction(world, imageStore),
-                this.getActionPeriod());
+    public void transform( WorldModel world,
+                           EventScheduler scheduler,
+                           ImageStore imageStore, Entity miner){
+        world.removeEntity(this);
+        scheduler.unscheduleAllEvents(this);
 
+        world.addEntity(miner);
+        ((animatingEntity)miner).scheduleActions(scheduler, world, imageStore);
     }
+
+    public void move(WorldModel world,
+                     Entity target,
+                     EventScheduler scheduler){
+        Point nextPos = this.nextPositionDude(world, target.getPosition());
+
+        if (!this.getPosition().equals(nextPos)) {
+            Optional<Entity> occupant = world.getOccupant(nextPos);
+            if (occupant.isPresent()) {
+                scheduler.unscheduleAllEvents(occupant.get());
+            }
+
+            world.moveEntity(this, nextPos);
+        }
+    }
+
+
 }

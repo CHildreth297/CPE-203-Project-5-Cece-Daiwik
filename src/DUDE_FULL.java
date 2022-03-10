@@ -26,9 +26,6 @@ public final class DUDE_FULL extends Dude
     }
 
 
-
-
-
     public void transformFull(
             WorldModel world,
             EventScheduler scheduler,
@@ -40,11 +37,7 @@ public final class DUDE_FULL extends Dude
                 this.getResourceLimit(),
                 this.getImagesList());
 
-        world.removeEntity(this);
-        scheduler.unscheduleAllEvents(this);
-
-        world.addEntity(miner);
-        ((animatingEntity)miner).scheduleActions(scheduler, world, imageStore);
+       super.transform(world, scheduler, imageStore, miner);
     }
 
     public void executeActivity(
@@ -74,16 +67,7 @@ public final class DUDE_FULL extends Dude
             return true;
         }
         else {
-            Point nextPos = this.nextPositionDude(world, target.getPosition());
-
-            if (!this.getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent()) {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
+            super.move(world, target, scheduler);
             return false;
         }
     }

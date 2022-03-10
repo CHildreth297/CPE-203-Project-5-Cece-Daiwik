@@ -28,7 +28,8 @@ public abstract class animatingEntity extends Entity{
 
         public int getAnimationPeriod(){return this.animationPeriod;}
 
-        public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){scheduler.scheduleEvent(this,
+        public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
+                scheduler.scheduleEvent(this,
                         this.createAnimationAction( 0),
                         this.getAnimationPeriod());
         }
