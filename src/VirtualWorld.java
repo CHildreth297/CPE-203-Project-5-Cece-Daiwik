@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Optional;
 
@@ -88,9 +90,66 @@ public final class VirtualWorld extends PApplet
         if (entityOptional.isPresent())
         {
             Entity entity = entityOptional.get();
-            System.out.println(entity.getId() + ": " + entity.getClass() + (entity instanceof Health ? ":" + ((Health)entity).getHealth() : ""));
+            System.out.println(entity.getId());
+
+            if(entity instanceof Dude) // also need to make fairies spawn lizards
+            {
+                world.removeEntityAt(entity.getPosition());
+                scheduler.unscheduleAllEvents(entity);
+
+//                Entity newKnight = Factory.createKnight("knight",
+//                        pressed,
+//                        720,
+//                        100,
+//                        4,
+//                        imageStore.getImageList("knight"));
+
+                Entity newKnight = new Knight("knight",
+                        pressed, imageStore.getImageList("knight"), 4, 720, 100);
+
+                //System.out.println(imageStore.getImageList("knight").size());
+
+                world.addEntity(newKnight);
+
+                ((animatingEntity)newKnight).scheduleActions(scheduler, world, imageStore);
+            }
         }
 
+        else
+        {
+            String id1 = "mainBurn";
+            String id2 = "sideBurn3";
+            world.setBackground(pressed, new Background(id1, imageStore.getImageList(id1)));
+
+            for(Point point:getValidRippleNeighbors(pressed))
+            {
+                if(world.getOccupancyCell(point) != null && world.getOccupancyCell(point) instanceof Health)
+                {
+                    world.removeEntityAt(point);
+                }
+                world.setBackground(point, new Background(id2, imageStore.getImageList(id2)));
+            }
+        }
+
+    }
+
+    private List<Point> getValidRippleNeighbors(Point point)
+    {
+        List<Point> validRippleNeighbors = new ArrayList<>();
+
+        for(int i=-1; i<=1; i++)
+        {
+            for(int j=-1; j<=1; j++)
+            {
+                Point temp = new Point(point.x + i, point.y + j);
+                if(world.withinBounds(temp) && !(i==0 && j==0))
+                {
+                    validRippleNeighbors.add(temp);
+                }
+            }
+        }
+
+        return validRippleNeighbors;
     }
 
     private Point mouseToPoint(int x, int y)
