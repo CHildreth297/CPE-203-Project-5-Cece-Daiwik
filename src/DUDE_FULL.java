@@ -31,13 +31,13 @@ public final class DUDE_FULL extends Dude
             EventScheduler scheduler,
             ImageStore imageStore)
     {
-        Entity miner = DUDE_NOT_FULL.create(this.getId(),
+        Entity dude = DUDE_NOT_FULL.create(this.getId(),
                 this.getPosition(), this.getActionPeriod(),
                 this.getAnimationPeriod(),
                 this.getResourceLimit(),
                 this.getImagesList());
 
-       super.transform(world, scheduler, imageStore, miner);
+       super.transform(world, scheduler, imageStore, dude);
     }
 
     public void executeActivity(

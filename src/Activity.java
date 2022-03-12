@@ -21,7 +21,6 @@ public final class Activity implements Action
     public void executeAction(EventScheduler scheduler) {
                 this.executeActivityAction(scheduler);
     }
-    // break up the case switches
 
 
     public void executeActivityAction(

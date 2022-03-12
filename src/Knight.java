@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public class Knight extends Dude
 {
+    public static boolean isKnight = false;
     public Knight(String id,
                   Point position,
                   List<PImage> images,
@@ -16,7 +17,7 @@ public class Knight extends Dude
     {
 
         super(id, position, images, 0, resourceLimit, 0, actionPeriod, animationPeriod);
-
+        isKnight = true;
         //super(id, position, images, 0, resourceLimit, resourceCount, actionPeriod, animationPeriod);
     }
 
@@ -65,19 +66,19 @@ public class Knight extends Dude
 //    }
 
     // don't need transform FULL for knight
-    public void transformFull(
-            WorldModel world,
-            EventScheduler scheduler,
-            ImageStore imageStore)
-    {
-        Entity miner = DUDE_NOT_FULL.create(this.getId(),
-                this.getPosition(), this.getActionPeriod(),
-                this.getAnimationPeriod(),
-                this.getResourceLimit(),
-                this.getImagesList());
-
-        super.transform(world, scheduler, imageStore, miner);
-    }
+//    public void transformFull(
+//            WorldModel world,
+//            EventScheduler scheduler,
+//            ImageStore imageStore)
+//    {
+//        Entity dude = Knight.create(this.getId(),
+//                this.getPosition(), this.getActionPeriod(),
+//                this.getAnimationPeriod(),
+//                this.getResourceLimit(),
+//                this.getImagesList());
+//
+//        super.transform(world, scheduler, imageStore, dude);
+//    }
 
     public void executeActivity(
             WorldModel world,
@@ -85,14 +86,22 @@ public class Knight extends Dude
             EventScheduler scheduler)
     {
         Optional<Entity> fullTarget =
-                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(HOUSE.class)));
+                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Lizard.class)));
         // lizard
         // just call super.transform
 
         if (fullTarget.isPresent() && this.moveToFull(world,
                 fullTarget.get(), scheduler))
         {
-            this.transformFull(world, scheduler, imageStore);
+            world.removeEntity(fullTarget.get());
+            Entity dude = Knight.create(this.getId(),
+                this.getPosition(), this.getActionPeriod(),
+                this.getAnimationPeriod(),
+                this.getResourceLimit(),
+                this.getImagesList());
+
+        super.transform(world, scheduler, imageStore, dude);
+
         }
         else {
             super.executeActivity(world, imageStore, scheduler);
@@ -120,7 +129,7 @@ public class Knight extends Dude
             int animationPeriod,
             int resourceLimit,
             List<PImage> images) {
-        return new DUDE_FULL(id, position, images, resourceLimit, 0,
+        return new Knight(id, position, images, resourceLimit,
                 actionPeriod, animationPeriod);
     }
 

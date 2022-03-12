@@ -54,12 +54,12 @@ public abstract class Dude extends Executable {
 
     public void transform( WorldModel world,
                            EventScheduler scheduler,
-                           ImageStore imageStore, Entity miner){
+                           ImageStore imageStore, Entity dude){
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        world.addEntity(miner);
-        ((animatingEntity)miner).scheduleActions(scheduler, world, imageStore);
+        world.addEntity(dude);
+        ((animatingEntity)dude).scheduleActions(scheduler, world, imageStore);
     }
 
     public void move(WorldModel world,

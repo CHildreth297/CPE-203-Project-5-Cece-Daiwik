@@ -10,6 +10,7 @@ import processing.core.PApplet;
  */
 public final class Functions
 {
+
     private static final Random rand = new Random();
 
     private static final int COLOR_MASK = 0xffffff;
@@ -72,6 +73,12 @@ public final class Functions
     private static final int FAIRY_ROW = 3;
     private static final int FAIRY_ANIMATION_PERIOD = 4;
     private static final int FAIRY_ACTION_PERIOD = 5;
+
+    public static final String LIZARD_KEY = "lizard";
+    public static final int LIZARD_ID = 1;
+    public static final int LIZARD_COL = 2;
+    public static final int LIZARD_ROW = 3;
+    public static final int LIZARD_HEALTH= 4;
 
 
 //    public static PImage getCurrentImage(Object entity) {
