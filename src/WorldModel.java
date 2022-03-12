@@ -21,14 +21,6 @@ public final class WorldModel {
 
     public Set<Entity> getEntities(){return this.entities;}
 
-    public Background[][] getBackground() {
-        return background;
-    }
-
-    public Entity[][] getOccupancy() {
-        return occupancy;
-    }
-
     public WorldModel(int numRows, int numCols, Background defaultBackground) {
         this.numRows = numRows;
         this.numCols = numCols;

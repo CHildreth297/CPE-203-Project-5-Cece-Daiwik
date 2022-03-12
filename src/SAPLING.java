@@ -21,8 +21,8 @@ public final class SAPLING extends Health
 
     private static final String STUMP_KEY = "stump";
 
-    public static final int SAPLING_HEALTH_LIMIT = 5;
-    public static final int SAPLING_ACTION_ANIMATION_PERIOD = 1000; // have to be in sync since grows and gains health at same time
+    private static final int SAPLING_HEALTH_LIMIT = 10;
+    private static final int SAPLING_ACTION_ANIMATION_PERIOD = 1000; // have to be in sync since grows and gains health at same time
 
 
     public SAPLING(
@@ -94,7 +94,6 @@ public final class SAPLING extends Health
 
 
     }
-
 
 
     public static Entity create(

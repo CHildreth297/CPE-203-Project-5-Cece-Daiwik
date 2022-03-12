@@ -53,18 +53,29 @@ public final class FAIRY extends Executable
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        Optional<Entity> fairyTarget =
+
+        Optional<Entity> target =
                 world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(STUMP.class)));
 
-        if (fairyTarget.isPresent()) {
-            Point tgtPos = fairyTarget.get().getPosition();
+        if (target.isPresent()) {
+            Point tgtPos = target.get().getPosition();
 
-            if (this.moveToFairy(world, (STUMP) fairyTarget.get(), scheduler)) {
-                Entity sapling = SAPLING.create("sapling_" + this.getId(), tgtPos,
-                        imageStore.getImageList(Functions.SAPLING_KEY));
+            if (this.moveToFairy(world, (STUMP) target.get(), scheduler)) {
+                if(Knight.isKnight){
+                    Entity lizard = Lizard.create("lizard_" + this.getId(), tgtPos,
+                            imageStore.getImageList(Functions.LIZARD_KEY));
+                    world.addEntity(lizard);
+                    ((animatingEntity)lizard).scheduleActions(scheduler, world, imageStore);
+                }
+                else{
+                    Entity sapling = SAPLING.create("sapling_" + this.getId(), tgtPos,
+                            imageStore.getImageList(Functions.SAPLING_KEY));
+                    world.addEntity(sapling);
+                    ((animatingEntity)sapling).scheduleActions(scheduler, world, imageStore);
+                }
 
-                world.addEntity(sapling);
-                ((animatingEntity)sapling).scheduleActions(scheduler, world, imageStore);
+
+
             }
         }
 

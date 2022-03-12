@@ -32,13 +32,13 @@ public final class DUDE_NOT_FULL extends Dude
             ImageStore imageStore)
     {
         if (this.getResourceCount() >= this.getResourceLimit()) {
-            Entity miner = DUDE_FULL.create(this.getId(),
+            Entity dude = DUDE_FULL.create(this.getId(),
                     this.getPosition(), this.getActionPeriod(),
                     this.getAnimationPeriod(),
                     this.getResourceLimit(),
                     this.getImagesList());
 
-            super.transform(world, scheduler, imageStore, miner);
+            super.transform(world, scheduler, imageStore, dude);
 
             return true;
         }
