@@ -75,10 +75,15 @@ public final class Functions
     private static final int FAIRY_ACTION_PERIOD = 5;
 
     public static final String LIZARD_KEY = "lizard";
-    public static final int LIZARD_ID = 1;
-    public static final int LIZARD_COL = 2;
-    public static final int LIZARD_ROW = 3;
-    public static final int LIZARD_HEALTH= 4;
+    public static final int LIZARD_ACTION_PERIOD = 7000;
+    private static final int LIZARD_NUM_PROPERTIES = 6;
+    private static final int LIZARD_ID = 1;
+    private static final int LIZARD_COL = 2;
+    private static final int LIZARD_ROW = 3;
+    public static final int LIZARD_HEALTH = 0;
+    public static final int LIZARD_ANIMATION_PERIOD = 1000;
+    public static final int LIZARD_HEALTH_LIMIT = 100;
+
 
 
 //    public static PImage getCurrentImage(Object entity) {
@@ -727,6 +732,8 @@ public final class Functions
                     return parseTree(properties, world, imageStore);
                 case SAPLING_KEY:
                     return parseSapling(properties, world, imageStore);
+                case LIZARD_KEY:
+                    return parseLizard(properties, world, imageStore);
             }
         }
 
@@ -761,6 +768,25 @@ public final class Functions
         }
 
         return properties.length == SAPLING_NUM_PROPERTIES;
+    }
+
+    public static boolean parseLizard(
+            String[] properties, WorldModel world, ImageStore imageStore)
+    {
+        if (properties.length == LIZARD_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[LIZARD_COL]),
+                    Integer.parseInt(properties[LIZARD_ROW]));
+            Entity entity = Lizard.create(properties[LIZARD_ID],
+                    pt,
+                    imageStore.getImageList(LIZARD_KEY),
+                    Integer.parseInt(properties[LIZARD_ACTION_PERIOD]),
+                    Integer.parseInt(properties[LIZARD_ANIMATION_PERIOD]),
+                    LIZARD_HEALTH,
+                    LIZARD_HEALTH_LIMIT);
+            world.tryAddEntity(entity);
+        }
+
+        return properties.length == FAIRY_NUM_PROPERTIES;
     }
 
     public static boolean parseDude(

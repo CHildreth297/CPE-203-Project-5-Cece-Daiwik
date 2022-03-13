@@ -63,7 +63,11 @@ public final class FAIRY extends Executable
             if (this.moveToFairy(world, (STUMP) target.get(), scheduler)) {
                 if(Knight.isKnight){
                     Entity lizard = Lizard.create("lizard_" + this.getId(), tgtPos,
-                            imageStore.getImageList(Functions.LIZARD_KEY));
+                            imageStore.getImageList(Functions.LIZARD_KEY),
+                            Functions.LIZARD_ACTION_PERIOD,
+                            Functions.LIZARD_ANIMATION_PERIOD,
+                            Functions.LIZARD_HEALTH,
+                            Functions.LIZARD_HEALTH_LIMIT);
                     world.addEntity(lizard);
                     ((animatingEntity)lizard).scheduleActions(scheduler, world, imageStore);
                 }

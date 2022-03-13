@@ -9,10 +9,6 @@ import java.util.List;
 
 public final class Lizard extends Health{
 
-    private static final int LIZARD_HEALTH_LIMIT = 15;
-    private static final int LIZARD_ACTION_ANIMATION_PERIOD = 3000;
-
-
     public Lizard(String id,
                   Point position,
                   List<PImage> images,
@@ -32,18 +28,37 @@ public final class Lizard extends Health{
             scheduler.unscheduleAllEvents(this);
         }
         else{
-            this.health++;
-            int intialPosX = this.getPosition().x;
-            int initialPosY = this.getPosition().y;
-            Point newPos = new Point(intialPosX + (int) ((Math.random() * 2) - 1), initialPosY + (int) (Math.random() * 2) - 1);
-            while(!world.withinBounds(newPos) && world.isOccupied(newPos)){
-                newPos = new Point(intialPosX + (int) ((Math.random() * 2) - 1), initialPosY + (int) (Math.random() * 2) - 1);
+            health++;
+//            int initialPosX = this.getPosition().x;
+//            int initialPosY = this.getPosition().y;
+//            Point newPos = new Point(initialPosX + (int) ((Math.random() * 2) - 1), initialPosY + (int) (Math.random() * 2) - 1);
+//            while(!world.withinBounds(newPos) && world.isOccupied(newPos)){
+//                newPos = new Point(initialPosX + (int) ((Math.random() * 2) - 1), initialPosY + (int) (Math.random() * 2) - 1);
+//            }
+//            world.moveEntity(this, newPos);
+            Point desPos = new Point((int)((Math.random() * 60) - 10), (int)((Math.random() * 60) - 10));
+            while(!world.withinBounds(desPos) || world.isOccupied(desPos)){
+                desPos = new Point((int)((Math.random() * 60) - 10), (int)((Math.random() * 60) - 10));
             }
+            Point newPos = this.nextPositionLizard(world, desPos);
             world.moveEntity(this, newPos);
         }
+        super.executeActivity(world, imageStore, scheduler);
 
 
     }
+
+    public Point nextPositionLizard(WorldModel world, Point desPos){
+        PathingStrategy path = new SingleStepPathingStrategy();
+        // fairies will get stuck because it's only moving the point - once A star is implemented, they should be moving around
+        List<Point> paths = path.computePath(this.getPosition(),
+                desPos,
+                (Point p1) -> world.withinBounds(p1) && !world.isOccupied(p1),
+                (Point p1, Point p2) -> Functions.adjacent(p1, p2), path.CARDINAL_NEIGHBORS);
+        return (paths.size() == 0 ? this.getPosition() : paths.get(0));
+    }
+
+
     public void scheduleActions(
             EventScheduler scheduler,
             WorldModel world,
@@ -61,10 +76,14 @@ public final class Lizard extends Health{
     public static Entity create(
             String id,
             Point position,
-            List<PImage> images)
+            List<PImage> images,
+            int actionPeriod,
+            int animationPeriod,
+            int health,
+            int healthLimit)
     {
         return new Lizard(id, position, images,
-                LIZARD_ACTION_ANIMATION_PERIOD, LIZARD_ACTION_ANIMATION_PERIOD, 0, LIZARD_HEALTH_LIMIT);
+                actionPeriod, animationPeriod, health, healthLimit);
     }
 
 
