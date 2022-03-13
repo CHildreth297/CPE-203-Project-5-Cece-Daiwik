@@ -75,7 +75,7 @@ public final class Functions
     private static final int FAIRY_ACTION_PERIOD = 5;
 
     public static final String LIZARD_KEY = "lizard";
-    public static final int LIZARD_ACTION_PERIOD = 7000;
+    public static final int LIZARD_ACTION_PERIOD = 1000;
     private static final int LIZARD_NUM_PROPERTIES = 6;
     private static final int LIZARD_ID = 1;
     private static final int LIZARD_COL = 2;

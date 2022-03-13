@@ -86,36 +86,7 @@ public final class VirtualWorld extends PApplet
         Point pressed = mouseToPoint(mouseX, mouseY);
         System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
 
-        Optional<Entity> entityOptional = world.getOccupant(pressed);
-        if (entityOptional.isPresent())
-        {
-            Entity entity = entityOptional.get();
-            System.out.println(entity.getId());
-
-            if(entity instanceof Dude) // also need to make fairies spawn lizards
-            {
-                world.removeEntityAt(entity.getPosition());
-                scheduler.unscheduleAllEvents(entity);
-
-//                Entity newKnight = Factory.createKnight("knight",
-//                        pressed,
-//                        720,
-//                        100,
-//                        4,
-//                        imageStore.getImageList("knight"));
-
-                Entity newKnight = new Knight("knight",
-                        pressed, imageStore.getImageList("knight"), 4, 720, 100);
-
-                //System.out.println(imageStore.getImageList("knight").size());
-
-                world.addEntity(newKnight);
-
-                ((animatingEntity)newKnight).scheduleActions(scheduler, world, imageStore);
-            }
-        }
-
-        else
+        if(!checkSpotForDude(pressed))
         {
             String id1 = "mainBurn";
             String id2 = "sideBurn3";
@@ -123,15 +94,48 @@ public final class VirtualWorld extends PApplet
 
             for(Point point:getValidRippleNeighbors(pressed))
             {
-                if(world.getOccupancyCell(point) != null && world.getOccupancyCell(point) instanceof Health)
+                if(world.getOccupancyCell(point) != null)
                 {
-                    world.removeEntityAt(point);
+                    if(world.getOccupancyCell(point) instanceof Health)
+                    {
+                        world.removeEntityAt(point);
+                    }
+                    else
+                    {
+                        checkSpotForDude(point);
+                    }
                 }
                 world.setBackground(point, new Background(id2, imageStore.getImageList(id2)));
             }
         }
-
     }
+
+    private boolean checkSpotForDude(Point pressed)
+    {
+        Optional<Entity> entityOptional = world.getOccupant(pressed);
+        if (entityOptional.isPresent())
+        {
+            Entity entity = entityOptional.get();
+            System.out.println(entity.getId());
+
+            if(entity instanceof Dude)
+            {
+                world.removeEntityAt(entity.getPosition());
+                scheduler.unscheduleAllEvents(entity);
+
+                Entity newKnight = new Knight("knight",
+                        pressed, imageStore.getImageList("knight"), 4, 720, 100);
+
+                world.addEntity(newKnight);
+
+                ((animatingEntity)newKnight).scheduleActions(scheduler, world, imageStore);
+
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private List<Point> getValidRippleNeighbors(Point point)
     {
