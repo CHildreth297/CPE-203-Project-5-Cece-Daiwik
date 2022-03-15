@@ -1,0 +1,17 @@
+VISUALIZATION:
+On click of a certain position, the nearby 8 tiles will transform in scorched background to mimic the affect of burning.
+Nearby entities that have health (e.g trees, saplings, lizards) will disappear (killed by the burning)
+
+
+EFFECT:
+If the click is within the proximity of a dude, the dude will transform into knight with the goal of hunting the lizards spawned by fairies.
+When at least one dude has transformed into a knight, the fairies will start spawning lizards instead of saplings.
+
+
+NEW ENTITY:
+Lizards are created by the fairies. They move similarly to the fairies (using pathing strategy) and also do hve health that will increase each type it executes its own activity.
+Lizards will disappear after health = healthLimit to prevent overpopulation.
+
+
+PARTNERS:
+Cece Hildreth, Daiwik Swaminathan
