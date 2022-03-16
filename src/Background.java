@@ -14,6 +14,8 @@ public final class Background {
         return imageIndex;
     }
 
+    public String getId(){return id;}
+
     public Background(String id, List<PImage> images) {
         this.id = id;
         this.images = images;

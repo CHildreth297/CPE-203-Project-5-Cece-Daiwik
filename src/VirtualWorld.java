@@ -39,6 +39,8 @@ public final class VirtualWorld extends PApplet
 
     private static double timeScale = 1.0;
 
+    public static boolean worldTransformed;
+
     private ImageStore imageStore;
     private WorldModel world;
     private WorldView view;
@@ -81,12 +83,93 @@ public final class VirtualWorld extends PApplet
         view.drawViewport();
     }
 
+    private void transformWorld()
+    {
+
+        for(int i=0; i<world.getNumRows(); i++)
+        {
+            for(int j=0; j<world.getNumCols(); j++)
+            {
+                if(world.getBackground()[i][j].getId().equals("grass"))
+                {
+                    world.getBackground()[i][j] = new Background("lava1", imageStore.getImageList("lava1"));
+                }
+                else if(world.getBackground()[i][j].getId().equals("flowers") ||
+                        world.getBackground()[i][j].getId().equals("mainBurn") ||
+                        world.getBackground()[i][j].getId().equals("sideBurn3"))
+                {
+                    world.getBackground()[i][j] = new Background("lava2", imageStore.getImageList("lava2"));
+                }
+                /*
+                else if(world.getBackground()[i][j].getId().equals("dirt") || 
+                        world.getBackground()[i][j].getId().equals("dirt_horiz")
+                world.getBackground()[i][j].getId().equals("dirt_vert_left")
+                world.getBackground()[i][j].getId().equals("dirt_vert_right")
+                world.getBackground()[i][j].getId().equals("dirt_bot_left_corner")
+                world.getBackground()[i][j].getId().equals("dirt_bot_right_up")
+                world.getBackground()[i][j].getId().equals("dirt_vert_left_bot"))
+                {
+
+                }
+
+                 */
+                else if(world.getBackground()[i][j].getId().equals("dirt_horiz"))
+                {
+                    world.getBackground()[i][j] = new Background("road3", imageStore.getImageList("road3"));
+                }
+                else if(world.getBackground()[i][j].getId().equals("dirt_vert_left") ||
+                        world.getBackground()[i][j].getId().equals("dirt_vert_right") ||
+                        world.getBackground()[i][j].getId().equals("dirt_bot_left_corner") ||
+                        world.getBackground()[i][j].getId().equals("dirt_bot_right_up") ||
+                        world.getBackground()[i][j].getId().equals("dirt_vert_left_bot"))
+                {
+                    world.getBackground()[i][j] = new Background("road2", imageStore.getImageList("road2"));
+                }
+
+                else if(world.getBackground()[i][j].getId().equals("bridge"))
+                {
+                    world.getBackground()[i][j] = new Background("lavaBridge", imageStore.getImageList("lavaBridge"));
+                }
+            }
+        }
+
+        imageStore.getMapOfImages().replace("lizard", imageStore.getImageList("dragon"));
+        imageStore.getMapOfImages().replace("house", imageStore.getImageList("castle"));
+        imageStore.getMapOfImages().replace("obstacle", imageStore.getImageList("lavaFlowing"));
+        imageStore.getMapOfImages().replace("tree", imageStore.getImageList("egg"));
+
+
+        for(Entity entity: world.getEntities().stream().toList())
+        {
+            entity.setImageList(imageStore.getImageList(entity.getId()));
+            entity.setImageIndex(0);
+
+            /*
+            if(entity instanceof TREE)
+            {
+
+
+                Entity stump = new STUMP("stump", entity.getPosition(), imageStore.getImageList("egg"));
+
+                world.removeEntityAt(entity.getPosition());
+                scheduler.unscheduleAllEvents(entity);
+
+                world.addEntity(stump);
+            }
+            */
+
+        }
+    }
+
+
     // Just for debugging and for P5
     public void mousePressed() {
         Point pressed = mouseToPoint(mouseX, mouseY);
-        System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
+        //System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
+        //
+        // imageStore.getMapOfImages().replace("lizard", imageStore.getImageList("dragon"));
 
-        if(!checkSpotForDude(pressed))
+        if(!checkSpotForDude(pressed) && !worldTransformed && !lizardClicked(pressed))
         {
             String id1 = "mainBurn";
             String id2 = "sideBurn3";
@@ -108,7 +191,25 @@ public final class VirtualWorld extends PApplet
                 world.setBackground(point, new Background(id2, imageStore.getImageList(id2)));
             }
         }
+
+        if(lizardClicked(pressed))
+        {
+            worldTransformed = true;
+            transformWorld();
+        }
     }
+
+    private boolean lizardClicked(Point pressed)
+    {
+        Optional<Entity> entityOptional = world.getOccupant(pressed);
+        if (entityOptional.isPresent())
+        {
+            Entity entity = entityOptional.get();
+            return entity instanceof Lizard;
+        }
+        return false;
+    }
+
 
     private boolean checkSpotForDude(Point pressed)
     {
@@ -116,7 +217,7 @@ public final class VirtualWorld extends PApplet
         if (entityOptional.isPresent())
         {
             Entity entity = entityOptional.get();
-            System.out.println(entity.getId());
+            //System.out.println(entity.getId());
 
             if(entity instanceof Dude)
             {

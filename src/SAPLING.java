@@ -63,7 +63,7 @@ public final class SAPLING extends Health
         }
         else if (this.health >= this.healthLimit)
         {
-            Entity tree = TREE.create("tree_" + this.getId(),
+            Entity tree = TREE.create("tree",
                     this.getPosition(),
                     Functions.getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN),
                     Functions.getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN),

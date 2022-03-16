@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import java.util.List;
 
-public final class Lizard extends Health{
+public class Lizard extends Health{
 
     public Lizard(String id,
                   Point position,
@@ -23,12 +23,12 @@ public final class Lizard extends Health{
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        if(this.health == this.healthLimit){
+        if(this.health < this.healthLimit){
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);
         }
         else{
-            health++;
+            //health++;
 //            int initialPosX = this.getPosition().x;
 //            int initialPosY = this.getPosition().y;
 //            Point newPos = new Point(initialPosX + (int) ((Math.random() * 2) - 1), initialPosY + (int) (Math.random() * 2) - 1);
@@ -79,11 +79,10 @@ public final class Lizard extends Health{
             List<PImage> images,
             int actionPeriod,
             int animationPeriod,
-            int health,
-            int healthLimit)
+            int health)
     {
         return new Lizard(id, position, images,
-                actionPeriod, animationPeriod, health, healthLimit);
+                actionPeriod, animationPeriod, health, 0);
     }
 
 
