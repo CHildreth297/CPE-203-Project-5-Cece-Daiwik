@@ -1,3 +1,7 @@
+REPOSITORY:
+NAME: CPE-203-Project-5-Cece-Daiwik
+LINK: https://github.com/CHildreth297/CPE-203-Project-5-Cece-Daiwik.git
+
 VISUALIZATION:
 On click of a certain position, the nearby 8 tiles will transform in scorched background to mimic the affect of burning.
 Nearby entities that have health (e.g trees, saplings, lizards) will disappear (killed by the burning)
@@ -12,6 +16,10 @@ NEW ENTITY:
 Lizards are created by the fairies. They move similarly to the fairies (using pathing strategy) and also do hve health that will increase each type it executes its own activity.
 Lizards will disappear after health = healthLimit to prevent overpopulation.
 
+ADDITIONAL FEATURES:
+When the lizards are clicked, the entire world changes into a dragon theme. Lizards transform into dragons, the trees are transformed into eggs.
+Houses are transformed into castles and the obstacles are changed into lava. If the dudes are still woodchoppers when the world changes, their goal changes to
+cracking open the eggs for the fairies to transform them into dragons. The dudes that changed into knights before the world changes will start hunting the dragons.
 
 PARTNERS:
 Cece Hildreth, Daiwik Swaminathan
