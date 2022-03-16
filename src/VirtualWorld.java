@@ -101,7 +101,7 @@ public final class VirtualWorld extends PApplet
                     world.getBackground()[i][j] = new Background("lava2", imageStore.getImageList("lava2"));
                 }
                 /*
-                else if(world.getBackground()[i][j].getId().equals("dirt") ||
+                else if(world.getBackground()[i][j].getId().equals("dirt") || 
                         world.getBackground()[i][j].getId().equals("dirt_horiz")
                 world.getBackground()[i][j].getId().equals("dirt_vert_left")
                 world.getBackground()[i][j].getId().equals("dirt_vert_right")
