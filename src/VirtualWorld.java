@@ -39,7 +39,7 @@ public final class VirtualWorld extends PApplet
 
     private static double timeScale = 1.0;
 
-    private static boolean worldTransformed;
+    public static boolean worldTransformed;
 
     private ImageStore imageStore;
     private WorldModel world;
@@ -100,16 +100,64 @@ public final class VirtualWorld extends PApplet
                 {
                     world.getBackground()[i][j] = new Background("lava2", imageStore.getImageList("lava2"));
                 }
+                /*
+                else if(world.getBackground()[i][j].getId().equals("dirt") ||
+                        world.getBackground()[i][j].getId().equals("dirt_horiz")
+                world.getBackground()[i][j].getId().equals("dirt_vert_left")
+                world.getBackground()[i][j].getId().equals("dirt_vert_right")
+                world.getBackground()[i][j].getId().equals("dirt_bot_left_corner")
+                world.getBackground()[i][j].getId().equals("dirt_bot_right_up")
+                world.getBackground()[i][j].getId().equals("dirt_vert_left_bot"))
+                {
+
+                }
+
+                 */
+                else if(world.getBackground()[i][j].getId().equals("dirt_horiz"))
+                {
+                    world.getBackground()[i][j] = new Background("road3", imageStore.getImageList("road3"));
+                }
+                else if(world.getBackground()[i][j].getId().equals("dirt_vert_left") ||
+                        world.getBackground()[i][j].getId().equals("dirt_vert_right") ||
+                        world.getBackground()[i][j].getId().equals("dirt_bot_left_corner") ||
+                        world.getBackground()[i][j].getId().equals("dirt_bot_right_up") ||
+                        world.getBackground()[i][j].getId().equals("dirt_vert_left_bot"))
+                {
+                    world.getBackground()[i][j] = new Background("road2", imageStore.getImageList("road2"));
+                }
+
+                else if(world.getBackground()[i][j].getId().equals("bridge"))
+                {
+                    world.getBackground()[i][j] = new Background("lavaBridge", imageStore.getImageList("lavaBridge"));
+                }
             }
         }
 
         imageStore.getMapOfImages().replace("lizard", imageStore.getImageList("dragon"));
         imageStore.getMapOfImages().replace("house", imageStore.getImageList("castle"));
+        imageStore.getMapOfImages().replace("obstacle", imageStore.getImageList("lavaFlowing"));
+        imageStore.getMapOfImages().replace("tree", imageStore.getImageList("egg"));
 
-        for(Entity entity: world.getEntities())
+
+        for(Entity entity: world.getEntities().stream().toList())
         {
             entity.setImageList(imageStore.getImageList(entity.getId()));
             entity.setImageIndex(0);
+
+            /*
+            if(entity instanceof TREE)
+            {
+
+
+                Entity stump = new STUMP("stump", entity.getPosition(), imageStore.getImageList("egg"));
+
+                world.removeEntityAt(entity.getPosition());
+                scheduler.unscheduleAllEvents(entity);
+
+                world.addEntity(stump);
+            }
+            */
+
         }
     }
 
@@ -117,7 +165,7 @@ public final class VirtualWorld extends PApplet
     // Just for debugging and for P5
     public void mousePressed() {
         Point pressed = mouseToPoint(mouseX, mouseY);
-        System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
+        //System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
         //
         // imageStore.getMapOfImages().replace("lizard", imageStore.getImageList("dragon"));
 

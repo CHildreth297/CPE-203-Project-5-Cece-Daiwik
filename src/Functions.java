@@ -80,7 +80,7 @@ public final class Functions
     //private static final int LIZARD_ID = 0;
     private static final int LIZARD_COL = 2;
     private static final int LIZARD_ROW = 3;
-    public static final int LIZARD_HEALTH = 0;
+    public static final int LIZARD_HEALTH = 3;
     public static final int LIZARD_ANIMATION_PERIOD = 1000;
     public static final int LIZARD_HEALTH_LIMIT = 100;
 

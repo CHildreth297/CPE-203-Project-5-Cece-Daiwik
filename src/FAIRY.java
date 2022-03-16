@@ -85,9 +85,19 @@ public final class FAIRY extends Executable
             }
         }
         */
+
+
+
         Optional<Entity> target =
                 world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(STUMP.class)));
 
+        /*
+        if(VirtualWorld.worldTransformed)
+        {
+            target =
+                    world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(TREE.class)));
+        }
+        */
         if (target.isPresent())
         {
             Point tgtPos = target.get().getPosition();
@@ -100,11 +110,11 @@ public final class FAIRY extends Executable
                             imageStore.getImageList(Functions.LIZARD_KEY),
                             Functions.LIZARD_ACTION_PERIOD,
                             Functions.LIZARD_ANIMATION_PERIOD,
-                            Functions.LIZARD_HEALTH,
-                            Functions.LIZARD_HEALTH_LIMIT);
+                            Functions.LIZARD_HEALTH);
                     world.addEntity(lizard);
                     ((animatingEntity)lizard).scheduleActions(scheduler, world, imageStore);
                 }
+
                 else
                 {
                     Entity sapling = SAPLING.create("sapling_" + this.getId(), tgtPos,
@@ -113,6 +123,7 @@ public final class FAIRY extends Executable
                     ((animatingEntity)sapling).scheduleActions(scheduler, world, imageStore);
                 }
             }
+            //else if( VirtualWorld.worldTransformed && this.moveToFairy(world, (TREE) target.get(), scheduler) )
         }
         super.executeActivity(world, imageStore, scheduler);
     }

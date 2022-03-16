@@ -90,7 +90,7 @@ public class Knight extends Dude
         // lizard
         // just call super.transform
 
-        System.out.println(fullTarget);
+        //System.out.println(fullTarget);
 
         if(fullTarget.isEmpty())
         {
@@ -99,9 +99,9 @@ public class Knight extends Dude
         }
 
         if (fullTarget.isPresent() && this.moveToFull(world,
-                fullTarget.get(), scheduler))
+                (Health) fullTarget.get(), scheduler))
         {
-            world.removeEntity(fullTarget.get());
+            //world.removeEntity(fullTarget.get());
             Entity dude = Knight.create(this.getId(),
                 this.getPosition(), this.getActionPeriod(),
                 this.getAnimationPeriod(),
@@ -118,10 +118,12 @@ public class Knight extends Dude
 
     public boolean moveToFull(
             WorldModel world,
-            Entity target,
+            Health target,
             EventScheduler scheduler)
     {
         if (Functions.adjacent(this.getPosition(), target.getPosition())) {
+            //this.setResourceCount(this.getResourceCount() + 1);
+            target.setHealth(target.getHealth() - 1);
             return true;
         }
         else {

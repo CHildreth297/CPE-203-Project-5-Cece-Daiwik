@@ -4,6 +4,10 @@ obstacle images/water1.png
 obstacle images/water2.png
 obstacle images/water1.png
 obstacle images/water0.png
+lavaFlowing images/lavaFlowing1.png
+lavaFlowing images/lavaFlowing2.png
+lavaFlowing images/lavaFlowing3.png
+lavaFlowing images/lavaFlowing4.png
 grass images/grass.png
 mainBurn images/mainBurn.png
 sideBurn images/sideBurn.png
@@ -12,6 +16,7 @@ sideBurn3 images/sideBurn3.png
 lava1 images/lava1.png
 lava2 images/lava2.png
 dragon images/dragon.png
+dragon images/dragon4.png
 castle images/castle.png
 flowers images/flowers.png
 background_default images/none.bmp
@@ -22,6 +27,12 @@ dirt_vert_right images/dirt_vert_left.png
 dirt_bot_left_corner images/dirt_bot_left_corner.png
 dirt_bot_right_up images/dirt_bot_right_up.png
 dirt_vert_left_bot images/dirt_vert_left_bot.png
+road1 images/road1.png
+road2 images/road2.png
+road3 images/road3.png
+egg images/egg1.png
+egg images/egg2.png
+lavaBridge images/lavaBridge.png
 bridge images/bridge.png
 tree images/tree0.png
 tree images/tree1.png
