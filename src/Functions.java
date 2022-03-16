@@ -24,14 +24,14 @@ public final class Functions
     public static final int SAPLING_HEALTH_LIMIT = 5;
     public static final int SAPLING_ACTION_ANIMATION_PERIOD = 1000; // have to be in sync since grows and gains health at same time
     public static final int SAPLING_NUM_PROPERTIES = 4;
-    public static final int SAPLING_ID = 1;
+    public static final int SAPLING_ID = 0; // 1
     public static final int SAPLING_COL = 2;
     public static final int SAPLING_ROW = 3;
     public static final int SAPLING_HEALTH = 4;
 
     public static final String TREE_KEY = "tree";
     public static final int TREE_NUM_PROPERTIES = 7;
-    public static final int TREE_ID = 1;
+    public static final int TREE_ID = 0;
     public static final int TREE_COL = 2;
     public static final int TREE_ROW = 3;
     public static final int TREE_ANIMATION_PERIOD = 4;
@@ -46,14 +46,14 @@ public final class Functions
 
     private static final String OBSTACLE_KEY = "obstacle";
     private static final int OBSTACLE_NUM_PROPERTIES = 5;
-    private static final int OBSTACLE_ID = 1;
+    private static final int OBSTACLE_ID = 0;
     private static final int OBSTACLE_COL = 2;
     private static final int OBSTACLE_ROW = 3;
     private static final int OBSTACLE_ANIMATION_PERIOD = 4;
 
     private static final String DUDE_KEY = "dude";
     private static final int DUDE_NUM_PROPERTIES = 7;
-    private static final int DUDE_ID = 1;
+    private static final int DUDE_ID = 0;
     private static final int DUDE_COL = 2;
     private static final int DUDE_ROW = 3;
     private static final int DUDE_LIMIT = 4;
@@ -62,13 +62,13 @@ public final class Functions
 
     private static final String HOUSE_KEY = "house";
     private static final int HOUSE_NUM_PROPERTIES = 4;
-    private static final int HOUSE_ID = 1;
+    private static final int HOUSE_ID = 0;
     private static final int HOUSE_COL = 2;
     private static final int HOUSE_ROW = 3;
 
     private static final String FAIRY_KEY = "fairy";
     private static final int FAIRY_NUM_PROPERTIES = 6;
-    private static final int FAIRY_ID = 1;
+    private static final int FAIRY_ID = 0;
     private static final int FAIRY_COL = 2;
     private static final int FAIRY_ROW = 3;
     private static final int FAIRY_ANIMATION_PERIOD = 4;
@@ -76,8 +76,8 @@ public final class Functions
 
     public static final String LIZARD_KEY = "lizard";
     public static final int LIZARD_ACTION_PERIOD = 1000;
-    private static final int LIZARD_NUM_PROPERTIES = 6;
-    private static final int LIZARD_ID = 1;
+    //private static final int LIZARD_NUM_PROPERTIES = 6;
+    //private static final int LIZARD_ID = 0;
     private static final int LIZARD_COL = 2;
     private static final int LIZARD_ROW = 3;
     public static final int LIZARD_HEALTH = 0;
@@ -732,8 +732,8 @@ public final class Functions
                     return parseTree(properties, world, imageStore);
                 case SAPLING_KEY:
                     return parseSapling(properties, world, imageStore);
-                case LIZARD_KEY:
-                    return parseLizard(properties, world, imageStore);
+                //case LIZARD_KEY:
+                //    return parseLizard(properties, world, imageStore);
             }
         }
 
@@ -770,6 +770,7 @@ public final class Functions
         return properties.length == SAPLING_NUM_PROPERTIES;
     }
 
+    /*
     public static boolean parseLizard(
             String[] properties, WorldModel world, ImageStore imageStore)
     {
@@ -783,11 +784,13 @@ public final class Functions
                     Integer.parseInt(properties[LIZARD_ANIMATION_PERIOD]),
                     LIZARD_HEALTH,
                     LIZARD_HEALTH_LIMIT);
-            world.tryAddEntity(entity);
+            //world.tryAddEntity(entity);
         }
 
-        return properties.length == FAIRY_NUM_PROPERTIES;
+        //return properties.length == FAIRY_NUM_PROPERTIES;
     }
+
+     */
 
     public static boolean parseDude(
             String[] properties, WorldModel world, ImageStore imageStore)

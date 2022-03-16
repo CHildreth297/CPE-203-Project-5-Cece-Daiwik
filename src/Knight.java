@@ -90,6 +90,14 @@ public class Knight extends Dude
         // lizard
         // just call super.transform
 
+        System.out.println(fullTarget);
+
+        if(fullTarget.isEmpty())
+        {
+            fullTarget =
+                    world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(TREE.class, SAPLING.class)));
+        }
+
         if (fullTarget.isPresent() && this.moveToFull(world,
                 fullTarget.get(), scheduler))
         {

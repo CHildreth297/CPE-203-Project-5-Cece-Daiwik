@@ -40,6 +40,11 @@ public final class ImageStore
         }
     }
 
+    public Map<String, List<PImage>> getMapOfImages()
+    {
+        return this.images;
+    }
+
     public static List<PImage> getImages(
             Map<String, List<PImage>> images, String key)
     {

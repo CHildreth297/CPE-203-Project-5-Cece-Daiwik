@@ -19,6 +19,10 @@ public final class WorldModel {
 
     public int getNumCols(){return this.numCols;}
 
+    public Background[][] getBackground() {
+        return background;
+    }
+
     public Set<Entity> getEntities(){return this.entities;}
 
     public WorldModel(int numRows, int numCols, Background defaultBackground) {

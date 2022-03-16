@@ -39,6 +39,8 @@ public final class VirtualWorld extends PApplet
 
     private static double timeScale = 1.0;
 
+    private static boolean worldTransformed;
+
     private ImageStore imageStore;
     private WorldModel world;
     private WorldView view;
@@ -81,12 +83,45 @@ public final class VirtualWorld extends PApplet
         view.drawViewport();
     }
 
+    private void transformWorld()
+    {
+
+        for(int i=0; i<world.getNumRows(); i++)
+        {
+            for(int j=0; j<world.getNumCols(); j++)
+            {
+                if(world.getBackground()[i][j].getId().equals("grass"))
+                {
+                    world.getBackground()[i][j] = new Background("lava1", imageStore.getImageList("lava1"));
+                }
+                else if(world.getBackground()[i][j].getId().equals("flowers") ||
+                        world.getBackground()[i][j].getId().equals("mainBurn") ||
+                        world.getBackground()[i][j].getId().equals("sideBurn3"))
+                {
+                    world.getBackground()[i][j] = new Background("lava2", imageStore.getImageList("lava2"));
+                }
+            }
+        }
+
+        imageStore.getMapOfImages().replace("lizard", imageStore.getImageList("dragon"));
+        imageStore.getMapOfImages().replace("house", imageStore.getImageList("castle"));
+
+        for(Entity entity: world.getEntities())
+        {
+            entity.setImageList(imageStore.getImageList(entity.getId()));
+            entity.setImageIndex(0);
+        }
+    }
+
+
     // Just for debugging and for P5
     public void mousePressed() {
         Point pressed = mouseToPoint(mouseX, mouseY);
         System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
+        //
+        // imageStore.getMapOfImages().replace("lizard", imageStore.getImageList("dragon"));
 
-        if(!checkSpotForDude(pressed))
+        if(!checkSpotForDude(pressed) && !worldTransformed && !lizardClicked(pressed))
         {
             String id1 = "mainBurn";
             String id2 = "sideBurn3";
@@ -108,7 +143,25 @@ public final class VirtualWorld extends PApplet
                 world.setBackground(point, new Background(id2, imageStore.getImageList(id2)));
             }
         }
+
+        if(lizardClicked(pressed))
+        {
+            worldTransformed = true;
+            transformWorld();
+        }
     }
+
+    private boolean lizardClicked(Point pressed)
+    {
+        Optional<Entity> entityOptional = world.getOccupant(pressed);
+        if (entityOptional.isPresent())
+        {
+            Entity entity = entityOptional.get();
+            return entity instanceof Lizard;
+        }
+        return false;
+    }
+
 
     private boolean checkSpotForDude(Point pressed)
     {
@@ -116,7 +169,7 @@ public final class VirtualWorld extends PApplet
         if (entityOptional.isPresent())
         {
             Entity entity = entityOptional.get();
-            System.out.println(entity.getId());
+            //System.out.println(entity.getId());
 
             if(entity instanceof Dude)
             {

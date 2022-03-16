@@ -28,6 +28,11 @@ public abstract class Entity {
 
     public List getImagesList(){return this.images;}
 
+    public void setImageList(List<PImage> newImages)
+    {
+        this.images = newImages;
+    }
+
     public Point getPosition(){return this.position;}
 
     public Point setPosition(Point pos){return this.position = pos;}

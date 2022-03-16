@@ -54,15 +54,49 @@ public final class FAIRY extends Executable
             EventScheduler scheduler)
     {
 
+        /*
+        if(!Knight.isKnight)
+        {
+            Optional<Entity> target =
+                    world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(STUMP.class)));
+
+            if (target.isPresent())
+            {
+                Point tgtPos = target.get().getPosition();
+
+                if (this.moveToFairy(world, (STUMP) target.get(), scheduler))
+                {
+                    Entity sapling = SAPLING.create("sapling_" + this.getId(), tgtPos,
+                            imageStore.getImageList(Functions.SAPLING_KEY));
+                    world.addEntity(sapling);
+                    ((animatingEntity)sapling).scheduleActions(scheduler, world, imageStore);
+                }
+            }
+        }
+        else
+        {
+            Point tgtPos = getRandomValidPosition(world);
+
+            Entity target = STUMP.create("stump", tgtPos, imageStore.getImageList("stump"));
+
+            if (this.moveToFairy(world, (STUMP) target, scheduler))
+            {
+
+            }
+        }
+        */
         Optional<Entity> target =
                 world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(STUMP.class)));
 
-        if (target.isPresent()) {
+        if (target.isPresent())
+        {
             Point tgtPos = target.get().getPosition();
 
-            if (this.moveToFairy(world, (STUMP) target.get(), scheduler)) {
-                if(Knight.isKnight){
-                    Entity lizard = Lizard.create("lizard_" + this.getId(), tgtPos,
+            if (this.moveToFairy(world, (STUMP) target.get(), scheduler))
+            {
+                if(Knight.isKnight)
+                {
+                    Entity lizard = Lizard.create("lizard", tgtPos,
                             imageStore.getImageList(Functions.LIZARD_KEY),
                             Functions.LIZARD_ACTION_PERIOD,
                             Functions.LIZARD_ANIMATION_PERIOD,
@@ -71,22 +105,30 @@ public final class FAIRY extends Executable
                     world.addEntity(lizard);
                     ((animatingEntity)lizard).scheduleActions(scheduler, world, imageStore);
                 }
-                else{
+                else
+                {
                     Entity sapling = SAPLING.create("sapling_" + this.getId(), tgtPos,
                             imageStore.getImageList(Functions.SAPLING_KEY));
                     world.addEntity(sapling);
                     ((animatingEntity)sapling).scheduleActions(scheduler, world, imageStore);
                 }
-
-
-
             }
         }
-
         super.executeActivity(world, imageStore, scheduler);
     }
+/*
+    private Point getRandomValidPosition(WorldModel world)
+    {
+        Point temp = new Point(-1, -1);
 
+        while(!world.withinBounds(temp) && !world.isOccupied(temp))
+        {
+            temp = new Point((int)(Math.random()*world.getNumCols()), (int)(Math.random()*world.getNumRows()));
+        }
 
+        return temp;
+    }
+*/
     public boolean moveToFairy(
             WorldModel world,
             STUMP target,
