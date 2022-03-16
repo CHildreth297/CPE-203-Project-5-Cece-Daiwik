@@ -88,7 +88,7 @@ import java.util.Objects;
                 return false;
             }
             PathNode p = (PathNode) o;
-            return this.getPoint().equals(((PathNode) o).getPoint());
+            return this.getPoint().equals((p).getPoint());
         }
 
         //override hashset hashcode method

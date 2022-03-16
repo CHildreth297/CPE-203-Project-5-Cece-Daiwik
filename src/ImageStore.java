@@ -23,6 +23,7 @@ public final class ImageStore
         return this.images.getOrDefault(key, this.defaultImages);
     }
 
+
     public void loadImages(
             Scanner in, PApplet screen)
     {
@@ -38,6 +39,7 @@ public final class ImageStore
             }
             lineNumber++;
         }
+
     }
 
     public static List<PImage> getImages(

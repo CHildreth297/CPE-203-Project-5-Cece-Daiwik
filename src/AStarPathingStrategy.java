@@ -68,13 +68,12 @@ class AStarPathingStrategy
             curr = openList.poll();
         }
         // build the path
-            buildPath(curr, path);
-
+        buildPath(curr, path);
 
         return path;
     }
 
-    // helper function to build the path from the ending points to the starting point
+    // helper function to build the path from start to end
     public void buildPath(PathNode curr, List<Point> path){
         if(curr == null || curr.getPriorNode() == null){
            return;

@@ -44,7 +44,8 @@ public final class FAIRY extends Executable
         List<Point> paths = path.computePath(this.getPosition(),
                                              destPos,
                                             (Point p1) -> world.withinBounds(p1) && !world.isOccupied(p1),
-                                            (Point p1, Point p2) -> Functions.adjacent(p1, p2), path.CARDINAL_NEIGHBORS);
+                                            (Point p1, Point p2) -> Functions.adjacent(p1, p2),
+                                            path.CARDINAL_NEIGHBORS);
         return (paths.size() == 0 ? this.getPosition() : paths.get(0));
     }
 
